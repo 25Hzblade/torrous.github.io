@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hertz | World's Premier PC Hardware Destination</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #ff0000;
+            --dark-red: #cc0000;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #222222;
+            --darker-gray: #1a1a1a;
+            --black: #111111;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--darker-gray);
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .logo-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(26,26,26,0.9) 100%);
+            height: 90vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 80% 30%, rgba(255, 0, 0, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 70%, rgba(255, 0, 0, 0.1) 0%, transparent 20%);
+            z-index: -1;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, var(--darker-gray), transparent);
+        }
+        
+        .logo-glow {
+            text-shadow: 0 0 10px rgba(255,0,0,0.7), 
+                         0 0 20px rgba(255,0,0,0.5),
+                         0 0 30px rgba(255,0,0,0.3);
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% {
+                text-shadow: 0 0 10px rgba(255,0,0,0.7), 
+                             0 0 20px rgba(255,0,0,0.5),
+                             0 0 30px rgba(255,0,0,0.3);
+            }
+            100% {
+                text-shadow: 0 0 15px rgba(255,0,0,0.9), 
+                             0 0 25px rgba(255,0,0,0.7),
+                             0 0 35px rgba(255,0,0,0.5);
+            }
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark-red);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255,0,0,0.2);
+        }
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255,255,255,0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .btn-primary:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+        
+        .category-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            background-color: var(--dark-gray);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255,0,0,0.1);
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,0,0,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .category-card:hover::before {
+            left: 100%;
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+            border: 1px solid var(--dark-gray);
+            background-color: var(--dark-gray);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255,0,0,0.1);
+            border-color: var(--primary-red);
+        }
+        
+        .testimonial-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            background-color: var(--dark-gray);
+        }
+        
+        .testimonial-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-red);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 30px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+        
+        .newsletter-input {
+            border: none;
+            border-bottom: 2px solid var(--medium-gray);
+            background: transparent;
+            outline: none;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        
+        .newsletter-input:focus {
+            border-bottom-color: var(--primary-red);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            color: var(--primary-red);
+            transform: translateY(-3px);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+        }
+        
+        .carousel-item {
+            transition: transform 0.5s ease;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            bottom: -10px;
+            left: 0;
+            background-color: var(--primary-red);
+        }
+        
+        .bg-tech-pattern {
+            background-image: radial-gradient(circle, rgba(255,0,0,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Abstract tech elements */
+        .tech-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 0, 0, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            z-index: -1;
+        }
+        
+        .tech-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.3), transparent);
+            z-index: -1;
+        }
+        
+        .tech-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="bg-tech-pattern">
+    <!-- Navigation -->
+    <nav class="bg-gray-900 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold logo-font text-red-600">HERTZ</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="nav-link text-gray-300 hover:text-white">Home</a>
+                    <a href="#" class="nav-link text-gray-300 hover:text-white">Shop</a>
+                    <a href="#" class="nav-link text-gray-300 hover:text-white">Categories</a>
+                    <a href="#" class="nav-link text-gray-300 hover:text-white">Deals</a>
+                    <a href="#" class="nav-link text-gray-300 hover:text-white">About</a>
+                    <a href="#" class="nav-link text-gray-300 hover:text-white">Contact</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-gray-300 hover:text-white">
+                        <i class="fas fa-search text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white">
+                        <i class="fas fa-user text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white relative">
+                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                    </a>
+                    <button class="md:hidden text-gray-300 focus:outline-none">
+                        <i class="fas fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <!-- Hero Section -->
+<section class="hero flex items-center justify-center text-center">
+    <!-- Abstract tech elements -->
+    <div class="tech-circle" style="width: 300px; height: 300px; top: -100px; left: -100px;"></div>
+    <div class="tech-circle" style="width: 500px; height: 500px; bottom: -250px; right: -250px;"></div>
+    <div class="tech-line" style="width: 80%; top: 30%; left: 10%;"></div>
+    <div class="tech-line" style="width: 60%; top: 70%; left: 20%; transform: rotate(45deg);"></div>
+    <div class="tech-grid"></div>
+    
+    <div class="container mx-auto px-6 relative z-10">
+        <!-- Removed the glow class -->
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 logo-font">HERTZ</h1>
+        <p class="text-xl md:text-2xl text-white mb-8 max-w-2xl mx-auto">The UK's premier destination for high-performance PC hardware and accessories</p>
+        <div class="flex justify-center space-x-4">
+            <a href="#" class="btn-primary px-8 py-3 rounded-full font-semibold">Shop Now</a>
+            <a href="#" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition">Explore</a>
+        </div>
+        <!-- 👇 Scroll-down arrow completely removed -->
+    </div>
+</section>
+
+
+    <!-- Featured Products -->
+    <section class="py-16 bg-darker-gray">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center text-white section-title">Featured Products</h2>
+            <div class="relative overflow-hidden">
+                <div class="flex transition-transform duration-500 ease-in-out" id="carousel">
+                    <!-- Product 1 -->
+                    <div class="carousel-item min-w-full md:min-w-1/2 lg:min-w-1/4 px-4">
+                        <div class="product-card rounded-lg overflow-hidden p-6">
+                            <div class="bg-gray-800 rounded-lg p-4 mb-4 flex items-center justify-center h-48">
+                                <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="RTX 4090" class="h-40 object-contain">
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-white">NVIDIA RTX 4090</h3>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-400 ml-2">(24)</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-white">£1,599.99</span>
+                                <button class="bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="carousel-item min-w-full md:min-w-1/2 lg:min-w-1/4 px-4">
+                        <div class="product-card rounded-lg overflow-hidden p-6">
+                            <div class="bg-gray-800 rounded-lg p-4 mb-4 flex items-center justify-center h-48">
+                                <img src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ryzen 9 7950X" class="h-40 object-contain">
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-white">AMD Ryzen 9 7950X</h3>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-400 ml-2">(36)</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-white">£699.99</span>
+                                <button class="bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="carousel-item min-w-full md:min-w-1/2 lg:min-w-1/4 px-4">
+                        <div class="product-card rounded-lg overflow-hidden p-6">
+                            <div class="bg-gray-800 rounded-lg p-4 mb-4 flex items-center justify-center h-48">
+                                <img src="https://images.unsplash.com/photo-1587202372775-e229f1727040?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="DDR5 RAM" class="h-40 object-contain">
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-white">Corsair Dominator DDR5 32GB</h3>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="text-gray-400 ml-2">(18)</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-white">£249.99</span>
+                                <button class="bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 4 -->
+                    <div class="carousel-item min-w-full md:min-w-1/2 lg:min-w-1/4 px-4">
+                        <div class="product-card rounded-lg overflow-hidden p-6">
+                            <div class="bg-gray-800 rounded-lg p-4 mb-4 flex items-center justify-center h-48">
+                                <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Samsung SSD" class="h-40 object-contain">
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-white">Samsung 990 Pro 2TB NVMe</h3>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-400 ml-2">(42)</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xl font-bold text-white">£189.99</span>
+                                <button class="bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 p-2 rounded-full shadow-md hover:bg-gray-700 ml-2">
+                    <i class="fas fa-chevron-left text-white"></i>
+                </button>
+                <button id="next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 p-2 rounded-full shadow-md hover:bg-gray-700 mr-2">
+                    <i class="fas fa-chevron-right text-white"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Grid -->
+    <section class="py-16 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center text-white section-title">Shop by Category</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- GPU -->
+                <a href="#" class="category-card rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="GPUs" class="w-full h-40 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <h3 class="text-white text-xl font-bold">Graphics Cards</h3>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- CPU -->
+                <a href="#" class="category-card rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="CPUs" class="w-full h-40 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <h3 class="text-white text-xl font-bold">Processors</h3>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- RAM -->
+                <a href="#" class="category-card rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1587202372775-e229f1727040?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="RAM" class="w-full h-40 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <h3 class="text-white text-xl font-bold">Memory</h3>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Storage -->
+                <a href="#" class="category-card rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80" alt="Storage" class="w-full h-40 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <h3 class="text-white text-xl font-bold">Storage</h3>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Motherboards -->
+                <a href="#" class="category-card rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1563213026-3e6e5f9f5a9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=c crop&w=1470&q=80" alt="Motherboards" class="w-full h-40 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <h3 class="text-white text-xl font-bold">Motherboards</h3>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Cooling -->
+                <a href="#" class="category-card rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1563213126-a4273a5db4d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Cooling" class="w-full h-40 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <h3 class="text-white text-xl font-bold">Cooling</h3>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Power Supplies -->
+                <a href="#" class="category-card rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1563213126-a4273a5db4d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Power Supplies" class="w-full h-40 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <h3 class="text-white text-xl font-bold">Power Supplies</h3>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Peripherals -->
+                <a href="#" class="category-card rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1555664424-778a1e5e1b48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Peripherals" class="w-full h-40 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                            <h3 class="text-white text-xl font-bold">Peripherals</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Banner -->
+    <section class="py-32 bg-gray-800">
+        <div class="container mx-auto px-6 text-center">
+            <div class="relative">
+                <!-- Abstract tech elements -->
+                <div class="tech-circle" style="width: 200px; height: 200px; top: -50px; left: 50%; transform: translateX(-50%);"></div>
+                <div class="tech-line" style="width: 60%; top: 50%; left: 20%;"></div>
+                <div class="tech-line" style="width: 60%; top: 70%; left: 20%; transform: rotate(45deg);"></div>
+                
+                <h2 class="text-4xl font-bold text-white mb-6 relative z-10">Build Your Ultimate PC</h2>
+                <p class="text-xl text-white mb-8 max-w-2xl mx-auto relative z-10">Customize your dream machine with our premium components and expert advice</p>
+                <a href="#" class="btn-primary px-8 py-3 rounded-full font-semibold inline-block relative z-10">Start Building</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center text-white section-title">What Our Customers Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card p-8 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">"Hertz has the best selection of PC components in the UK. My new gaming rig with their RTX 4090 is absolutely crushing every game at 4K!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John D." class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-white">John D.</h4>
+                            <p class="text-gray-400 text-sm">Professional Gamer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card p-8 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">"The customer service at Hertz is unmatched. They helped me pick the perfect components for my video editing workstation. Highly recommended!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah M." class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-white">Sarah M.</h4>
+                            <p class="text-gray-400 text-sm">Video Editor</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card p-8 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">"Fast shipping and great prices. My new Ryzen 9 system is a beast for both gaming and productivity. Will definitely shop here again."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David T." class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-white">David T.</h4>
+                            <p class="text-gray-400 text-sm">Software Developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-gray-800 text-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
+                <p class="text-gray-400 mb-8">Subscribe to our newsletter for the latest deals, new arrivals, and tech news.</p>
+                <div class="flex flex-col sm:flex-row justify-center max-w-md mx-auto">
+                    <input type="email" placeholder="Your email address" class="newsletter-input px-4 py-3 mb-4 sm:mb-0 sm:mr-2 w-full bg-transparent placeholder-gray-500 focus:placeholder-gray-300">
+                    <button class="btn-primary px-6 py-3 rounded font-semibold">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 logo-font text-red-600">HERTZ</h3>
+                    <p class="text-gray-400">The UK's premier destination for high-performance PC hardware and accessories.</p>
+                    <div class="flex space-x-4 mt-6">
+                        <a href="#" class="social-icon text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Shop</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Graphics Cards</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Processors</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Memory</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Storage</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Motherboards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Warranty</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Build Guides</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Press</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Hertz Technologies Ltd. All rights reserved. Registered in England No. 12345678.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel functionality
+        const carousel = document.getElementById('carousel');
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
+        const items = document.querySelectorAll('.carousel-item');
+        let currentIndex = 0;
+        
+        function updateCarousel() {
+            const itemWidth = items[0].offsetWidth;
+            carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        }
+        
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < items.length - 1) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+        
+        // Testimonial fade-in animation
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        
+        function checkTestimonials() {
+            testimonialCards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (cardTop < windowHeight - 100) {
+                    card.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkTestimonials);
+        window.addEventListener('load', checkTestimonials);
+        
+        // General fade-in animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        function checkFadeElements() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkFadeElements);
+        window.addEventListener('load', checkFadeElements);
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Initialize animations on load
+        window.addEventListener('load', () => {
+            checkTestimonials();
+            checkFadeElements();
+        });
+    </script>
+</body>
+</html>
